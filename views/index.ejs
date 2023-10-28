@@ -1,0 +1,48 @@
+<%- include("./partials/header.ejs") %>
+
+<h1>ToDo List</h1>
+<div class="divContainer">
+<div class="divNewList" >
+  
+  <form class ="formList" method="POST"> <!-- action will be declared at the button below--> 
+    <% for (var i = 0; i < arrayToDo.length; i++) { %>
+    <% var toDo = "toDo"+i %>
+    <% var myLabel = "label"+i %>
+     <% var con = true; %> <!-- declaring con so the code will know if the IF statement added a checkbox -->
+    <% for (var x = 0; x < arrayToDo.length; x++) { %>
+     <% if (i == myArray[x]) {%> <!--checking if the index saved in myArray has a match in the index of arrayToDo then add a checkbox that is tick-->
+      <input type="checkbox" checked name="myCheckbox" id="<%= toDo %>" class="cb" value=<%= i %>><label for="myCheckbox" id="<%= myLabel %>" class="myLabel"><%= arrayToDo[i] %></label><br> 
+      <% con = false; %><!-- declaring con to false so in the next if statement it will know that i already added a checkbox-->
+      <% } %> 
+    <% } %>
+      <% if (con == true) {%> <!--con will still be true here if no match has found in the previous lines then add a checkbox WITHOUT tick/checked and line-through class-->
+    <input type="checkbox"  name="myCheckbox" id="<%= toDo %>" class="cb" value=<%= i %>><label for="myCheckbox" id="<%= myLabel %>" class="myLabel"><%= arrayToDo[i] %></label><br>  
+     <% } %>
+    <% } %> 
+    <!-- <h2>Other way for conditional statement above</h2>
+     <%// for (var i = 0; i < arrayToDo.length; i++) { %>
+     <%// if (myArray.includes(i)) {%> 
+      <input type="checkbox" checked name="myCheckbox" id="<%=// toDo %>" class="cb" value=<%=// i %>><label for="myCheckbox" id="<%=// myLabel %>" class="myLabel"><%=// arrayToDo[i] %></label><br> 
+      <%// } else {%>
+        <input type="checkbox"  name="myCheckbox" id="<%=// toDo %>" class="cb" value=<%=// i %>><label for="myCheckbox" id="<%=// myLabel %>" class="myLabel"><%=// arrayToDo[i] %></label><br>    
+        <%// } %>
+      <%// } %>   -->
+  </div> 
+  <div class="divSub">  
+  <input type="submit" formaction="/save" value="Save Changes" class="subButton button"><!-- action declared in formaction to know which address to be redirected -->
+  <input type="submit" formaction="/delete" value="Delete" class="subButton button"><!-- action declared in formaction to know which address to be redirected -->
+</form>
+
+
+
+<form action="/submit" method="POST">
+   
+  <input type="text" name="newTodo">
+  <input type="submit" value="Add" class="button">
+</div>  
+</form>
+</div>
+
+
+
+<%- include("./partials/footer.ejs") %>
